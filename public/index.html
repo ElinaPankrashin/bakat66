@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<head>
+    <title>EstWNvis</title>
+    <meta charset="utf-8">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            font-family: sans-serif;
+            font-size: 10pt;
+        }
+
+        .linked-word {
+            font-family: sans-serif;
+            font-size: 10pt;
+        }
+
+        .middle-word {
+            font-family: sans-serif;
+            font-size: 16pt;
+        }
+
+        .links line {
+            stroke-opacity: 1;
+        }
+
+        .type-antonym {
+            stroke: #ff0066;
+            color: #ff0066;
+            stroke-dasharray: 2;
+        }
+
+        .type-be_in_state {
+            stroke: #ff66a3;
+            color: #ff66a3;
+        }
+
+        .type-belongs_to_class {
+            stroke: #FF6F00;
+            color: #FF6F00;
+        }
+
+        .type-causes {
+            stroke: #7B7D7D;
+            color: #7B7D7D;
+        }
+
+        .type-fuzzynym {
+            stroke: #889945;
+            color: #889945;
+        }
+
+        .type-has_holo_location {
+            stroke: #95A5A6;
+            color: #95A5A6;
+        }
+
+        .type-has_holo_madeof {
+            stroke: #ff00bf;
+            color: #ff00bf;
+        }
+
+        .type-has_holo_member {
+            stroke: #ff9a4a;
+            color: #ff9a4a;
+        }
+
+        .type-has_holo_part {
+            stroke: #FDD835;
+            color: #FDD835;
+        }
+
+        .type-has_holo_portion {
+            stroke: #95A5A6;
+            color: #95A5A6;
+        }
+
+        .type-has_holonym {
+            stroke: #ff4d88;
+            color: #ff4d88;
+        }
+
+        .type-has_hyperonym {
+            stroke: #99004d;
+            color: #99004d;
+            stroke-dasharray: 2;
+        }
+
+        .type-has_hyponym {
+            stroke: #FFB300;
+            color: #FFB300;
+            stroke-dasharray: 2;
+        }
+
+        .type-has_instance {
+            stroke: #95A5A6;
+            color: #95A5A6;
+        }
+
+        .type-has_mero_location {
+            stroke: #ff1a66;
+            color: #ff1a66;
+        }
+
+        .type-has_mero_madeof {
+            stroke: #ff9a4a;
+            color: #ff9a4a;
+        }
+
+        .type-has_mero_member {
+            stroke: #D35400;
+            color: #D35400;
+        }
+
+        .type-has_mero_part {
+            stroke: #0D47A1;
+            color: #0D47A1;
+        }
+
+        .type-has_mero_portion {
+            stroke: #0288D1;
+            color: #0288D1;
+        }
+
+        .type-has_meronym {
+            stroke: #2196F3;
+            color: #2196F3;
+        }
+
+        .type-is_subevent_of {
+            stroke: #64B5F6;
+            color: #64B5F6;
+        }
+
+        .type-has_xpos_hyperonym {
+            stroke: #3F51B5;
+            color: #3F51B5;
+        }
+
+        .type-has_xpos_hyponym {
+            stroke: #ff6600;
+            color: #ff6600;
+        }
+
+        .type-involved {
+            stroke: #004D40;
+            color: #004D40;
+        }
+
+        .type-involved_agent {
+            stroke: #00796B;
+            color: #00796B;
+        }
+
+        .type-involved_instrument {
+            stroke: #26A69A;
+            color: #26A69A;
+        }
+
+        .type-involved_location {
+            stroke: #80CBC4;
+            color: #80CBC4;
+        }
+
+        .type-involved_patient {
+            stroke: #00134d;
+            color: #00134d;
+        }
+
+        .type-involved_target_direction {
+            stroke: #4DD0E1;
+            color: #4DD0E1;
+        }
+
+        .type-is_caused_by {
+            stroke: #0000ff;
+            color: #0000ff;
+        }
+
+        .type-is_subevent_by {
+            stroke: #9999ff;
+            color: #9999ff;
+        }
+
+        .type-near_antonym {
+            stroke: #78281F;
+            color: #78281F;
+        }
+
+        .type-near_synonym {
+            stroke: #33691E;
+            color: #33691E;
+        }
+
+        .type-role {
+            stroke: #C2185B;
+            color: #C2185B;
+        }
+
+        .type-role_agent {
+            stroke: #880E4F;
+            color: #880E4F;
+        }
+
+        .type-role_instrument {
+            stroke: #E91E63;
+            color: #E91E63;
+        }
+
+        .type-role_location {
+            stroke: #F06292;
+            color: #F06292;
+        }
+
+        .type-role_patient {
+            stroke: #F48FB1;
+            color: #F48FB1;
+        }
+
+        .type-role_target_direction {
+            stroke: #4d0019;
+            color: #4d0019;
+        }
+
+        .type-state_of {
+            stroke: #FFF59D;
+            color: #FFF59D;
+        }
+
+        .type-xpos_fuzzynym {
+            stroke: #F4511E;
+            color: #F4511E;
+        }
+
+        .type-xpos_near_antonym {
+            stroke: #C62828;
+            color: #C62828;
+        }
+
+        .type-xpos_near_synonym {
+            stroke: #7CB342;
+            color: #7CB342;
+        }
+
+        .type-synonym {
+            stroke: #40ff00;
+            color: #40ff00;
+            stroke-dasharray: 2;
+        }
+
+        .type-has_derived {
+            stroke: #943126;
+            color: #943126;
+        }
+
+        .nodes circle {
+            stroke: #fff;
+            stroke-width: 1.5px;
+        }
+
+        form {
+            display: inline;
+        }
+
+        svg {
+            user-select: none;
+        }
+
+        svg text:hover {
+            cursor: default;
+        }
+
+        #wordTitle, #legendTitle, #historyTitle {
+            color: #bebe04;
+            font-weight: bold;
+            font-size: 20pt;
+        }
+
+        #legendTitle, #historyTitle {
+            color: #00BCD4;
+            margin-bottom: 10px;
+        }
+
+        #partOfSpeech {
+            font-size: 13pt;
+        }
+
+        #wordContainer, #sensePicker {
+            text-align: center;
+        }
+
+        #legendPanel {
+            flex: 0 0 20em;
+            text-align: right;
+            order: 0;
+        }
+
+        #historyPanel {
+            flex: 0 0 12em;
+            order: 2;
+        }
+
+        #historyPanel a {
+            color: #BA68C8;
+        }
+
+        #graph {
+            flex: 1;
+            order: 1;
+        }
+
+        #loading {
+            display: block;
+            margin: auto;
+        }
+
+        #paneContainer {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .toggle-all {
+            font-weight: bold;
+        }
+
+        h1 {
+            margin: auto;
+            font-size: 28pt;
+        }
+
+        #title {
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+<div id="title">
+    <h1>EstWNvis</h1>
+</div>
+<div>
+    <form onsubmit="loadWord(document.getElementById('word').value); return false">
+        <input type="text" placeholder="Otsing" id="word">
+        <input type="submit" value="Otsi mõistet"/>
+    </form>
+
+    <div id="wordContainer">
+        <span id="wordTitle"></span> <span id="partOfSpeech"></span><br><span id="wordDef"></span>
+    </div>
+    <div id="sensePicker">
+    </div>
+</div>
+<div id="paneContainer">
+    <div id="legendPanel">
+        <div id="legendTitle"></div>
+        <div id="legend"></div>
+    </div>
+    <div id="historyPanel">
+        <div id="historyTitle"></div>
+        <div id="history"></div>
+    </div>
+    <div id="graph">
+        <img id="loading" src="loading.gif" alt="Programm laadib">
+        <svg id="svgGraph" width="100%" height="650"></svg>
+    </div>
+</div>
+<script src="js/d3.v4.min.js"></script>
+<script src="js/relations_custom.js"></script>
+</body>
